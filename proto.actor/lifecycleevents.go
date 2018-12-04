@@ -21,7 +21,7 @@ func (state *HelloActor) Receive(context actor.Context) {
 		fmt.Println("Stopped, actor and its children are stopped")
 	case *actor.Restarting:
 		fmt.Println("Restarting, actor is about restart")
-	case Hello:
+	case *Hello:
 		fmt.Printf("Hello %v\n", msg.Who)
 	}
 }
@@ -29,7 +29,7 @@ func (state *HelloActor) Receive(context actor.Context) {
 func main() {
 	props := actor.FromProducer(func() actor.Actor { return &HelloActor{} })
 	pid := actor.Spawn(props)
-	pid.Tell(Hello{Who: "Roger"})
+	pid.Tell(&Hello{Who: "Roger"})
 
 	//why wait?
 	//Stop is a system message and is not processed through the user message mailbox

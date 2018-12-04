@@ -21,7 +21,7 @@ func (state *SetBehaviorActor) Receive(context actor.Context) {
 func (state *SetBehaviorActor) Other(context actor.Context) {
 	switch msg := context.Message().(type) {
 	case Hello:
-		fmt.Printf("%v, ey we are now handling messages in another behavior", msg.Who)
+		fmt.Printf("%v, ey we are now handling messages in another behavior\n", msg.Who)
 	}
 }
 

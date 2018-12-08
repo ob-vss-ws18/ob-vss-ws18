@@ -1,7 +1,9 @@
 package main
 
 import (
-	console "github.com/AsynkronIT/goconsole"
+	"flag"
+	"time"
+
 	"github.com/AsynkronIT/protoactor-go/actor"
 	"github.com/AsynkronIT/protoactor-go/remote"
 	messages "github.com/ob-vss-ws18/ob-vss-ws18/proto.actor/echomessages"
@@ -18,10 +20,13 @@ func (*MyActor) Receive(context actor.Context) {
 	}
 }
 
+var flagBind = flag.String("bind", "localhost:8091", "Bind to address")
+
 func main() {
-	remote.Start("localhost:8091")
+	flag.Parse()
+	remote.Start(*flagBind)
 	props := actor.FromProducer(
 		func() actor.Actor { return &MyActor{} })
 	actor.SpawnNamed(props, "hello")
-	console.ReadLine()
+	time.Sleep(500 * time.Second)
 }

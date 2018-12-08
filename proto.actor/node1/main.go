@@ -1,9 +1,10 @@
 package main
 
 import (
+	"flag"
 	"fmt"
+	"time"
 
-	console "github.com/AsynkronIT/goconsole"
 	"github.com/AsynkronIT/protoactor-go/actor"
 	"github.com/AsynkronIT/protoactor-go/remote"
 	messages "github.com/ob-vss-ws18/ob-vss-ws18/proto.actor/echomessages"
@@ -21,19 +22,32 @@ func (state *MyActor) Receive(context actor.Context) {
 	}
 }
 
+var (
+	flagBind      = flag.String("bind", "localhost:8090", "Bind to address")
+	flagNode2Host = flag.String("node2host", "localhost:8091", "node2 host:port")
+)
+
 func main() {
-	remote.Start("localhost:8090")
+
+	flag.Parse()
+
+	remote.Start(*flagBind)
 	props := actor.FromProducer(func() actor.Actor {
 		return &MyActor{}
 	})
 	pid := actor.Spawn(props)
 	message := &messages.Echo{Message: "hej", Sender: pid}
 
+	fmt.Println("Sleeping 5 seconds...")
+	time.Sleep(5 * time.Second)
+	fmt.Println("Awake...")
+
 	//this is the remote actor we want to communicate with
-	remote := actor.NewPID("localhost:8091", "hello")
+	fmt.Printf("Trying to connect to %s\n", *flagNode2Host)
+	remote := actor.NewPID(*flagNode2Host, "hello")
 	for i := 0; i < 10; i++ {
 		remote.Tell(message)
 	}
 
-	console.ReadLine()
+	time.Sleep(500 * time.Second)
 }

@@ -23,8 +23,8 @@ func (state *MyActor) Receive(context actor.Context) {
 }
 
 var (
-	flagBind      = flag.String("bind", "localhost:8090", "Bind to address")
-	flagNode2Host = flag.String("node2host", "localhost:8091", "node2 host:port")
+	flagBind  = flag.String("bind", "localhost:8090", "Bind to address")
+	flagNode2 = flag.String("node2", "localhost:8091", "node2 host:port")
 )
 
 func main() {
@@ -43,8 +43,8 @@ func main() {
 	fmt.Println("Awake...")
 
 	//this is the remote actor we want to communicate with
-	fmt.Printf("Trying to connect to %s\n", *flagNode2Host)
-	remote := actor.NewPID(*flagNode2Host, "hello")
+	fmt.Printf("Trying to connect to %s\n", *flagNode2)
+	remote := actor.NewPID(*flagNode2, "hello")
 	for i := 0; i < 10; i++ {
 		remote.Tell(message)
 	}

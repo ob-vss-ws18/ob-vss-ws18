@@ -7,4 +7,4 @@ EXPOSE 8090
 
 WORKDIR /app
 ADD node1_docker /app/
-ENTRYPOINT ["/app/node1_docker", "--bind=node1:8090", "--node2host=node2:8091"]
+ENTRYPOINT ["/app/node1_docker", "--bind=node1:8090", "--node2=node2:8091"]

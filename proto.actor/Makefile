@@ -5,7 +5,7 @@ build:
 
 docker-build:
 	docker run --rm -v ~/go/src:/go/src \
-		-w /go/src/github.com/ob-vss-ws18/ob-vss-ws18/proto.actor/node1 iron/go:dev make app
+		-w /go/src/github.com/ob-vss-ws18/ob-vss-ws18/proto.actor/node1 iron/go:1.9 make app
 	cd node1 && docker build -t node1 .
 	rm node1/node1_docker
 	docker run --rm -v ~/go/src:/go/src \

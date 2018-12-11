@@ -2,9 +2,6 @@ version: "3"
 services:
   node1:
     image: node1
-    # ports:
-    #   - "8090:8090"
+
   node2:
     image: node2
-    # ports:
-    #   - "8091:8091"

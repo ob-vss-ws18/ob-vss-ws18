@@ -6,4 +6,4 @@ regenerate:
 	Mgoogle/protobuf/struct.proto=github.com/gogo/protobuf/types,\
 	Mgoogle/protobuf/timestamp.proto=github.com/gogo/protobuf/types,\
 	Mgoogle/protobuf/wrappers.proto=github.com/gogo/protobuf/types:. \
-	--proto_path=../../../:../../../gogo/protobuf/protobuf/:. messages.proto
+	--proto_path=../../../../:../../../../gogo/protobuf/protobuf/:. messages.proto

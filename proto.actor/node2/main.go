@@ -2,7 +2,8 @@ package main
 
 import (
 	"flag"
-	"time"
+
+	"github.com/AsynkronIT/goconsole"
 
 	"github.com/AsynkronIT/protoactor-go/actor"
 	"github.com/AsynkronIT/protoactor-go/remote"
@@ -28,5 +29,5 @@ func main() {
 	props := actor.FromProducer(
 		func() actor.Actor { return &MyActor{} })
 	actor.SpawnNamed(props, "hello")
-	time.Sleep(500 * time.Second)
+	console.ReadLine()
 }

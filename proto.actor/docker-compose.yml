@@ -1,7 +1,7 @@
 version: "3"
 services:
   node1:
-    image: node1
+    build: node1
 
   node2:
-    image: node2
+    build: node2

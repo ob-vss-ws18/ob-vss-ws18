@@ -19,12 +19,10 @@ pipeline {
         }
         stage('Build Nodes') {
             agent {
-                docker {
-                    image 'obraun/vss-jenkins'
-                    args '-v ${WORKSPACE}:/go/src/github.com/ob-vss-ws18/ob-vss-ws18'
-                }
+                docker { image 'obraun/vss-jenkins' }
             }
             steps {
+                sh 'ln -s $(pwd) /go/src/github.com/ob-vss-ws18/ob-vss-ws18'
                 sh 'ls /go/src/github.com/ob-vss-ws18/ob-vss-ws18/'
                 sh 'cd proto.actor/node1 && make app'
                 sh 'cd proto.actor/node2 && make app'

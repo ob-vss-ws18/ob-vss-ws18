@@ -17,16 +17,18 @@ pipeline {
                 sh 'echo golangci-lint run --enable-all'
             }
         }
-        stage('Build Node 1') {
+        stage('Build Nodes') {
             agent {
                 docker { image 'obraun/vss-jenkins' }
             }
             steps {
+                sh 'go get github.com/AsynkronIT/protoactor-go/...'
+                sh 'cd $GOPATH/src/github.com/AsynkronIT/protoactor-go && go get ./... && make'
                 sh 'cd proto.actor/node1 && make app'
                 sh 'cd proto.actor/node2 && make app'
             }
         }
-        stage('Build Docker Images') {
+        stage('Build Docker-Images') {
             agent any
             steps {
                 sh 'cd proto.actor && docker-compose build'

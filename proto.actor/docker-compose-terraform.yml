@@ -1,0 +1,7 @@
+version: "3"
+services:
+  node1:
+    image: terraform.cs.hm.edu:5043/ob-vss-ws18-ob-vss-ws18:master-node1
+
+  node2:
+    image: terraform.cs.hm.edu:5043/ob-vss-ws18-ob-vss-ws18:master-node1

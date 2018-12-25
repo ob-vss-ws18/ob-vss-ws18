@@ -3,9 +3,8 @@ package main
 import (
 	"flag"
 	"fmt"
+	"sync"
 	"time"
-
-	"github.com/AsynkronIT/goconsole"
 
 	"github.com/AsynkronIT/protoactor-go/actor"
 	"github.com/AsynkronIT/protoactor-go/remote"
@@ -14,6 +13,7 @@ import (
 
 type MyActor struct {
 	count int
+	wg    *sync.WaitGroup
 }
 
 func (state *MyActor) Receive(context actor.Context) {
@@ -21,6 +21,8 @@ func (state *MyActor) Receive(context actor.Context) {
 	case *echomessages.Response:
 		state.count++
 		fmt.Println(state.count)
+	case *actor.Stopped:
+		state.wg.Done()
 	}
 }
 
@@ -34,8 +36,10 @@ func main() {
 	flag.Parse()
 
 	remote.Start(*flagBind)
+	var wg sync.WaitGroup
 	props := actor.FromProducer(func() actor.Actor {
-		return &MyActor{}
+		wg.Add(1)
+		return &MyActor{0, &wg}
 	})
 	pid := actor.Spawn(props)
 	message := &echomessages.Echo{Message: "hej", Sender: pid}
@@ -51,5 +55,5 @@ func main() {
 		remote.Tell(message)
 	}
 
-	console.ReadLine()
+	wg.Wait()
 }

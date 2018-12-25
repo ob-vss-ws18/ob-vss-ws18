@@ -24,23 +24,17 @@ pipeline {
             steps {
                 sh 'mkdir -p /go/src/github.com/ob-vss-ws18'
                 sh 'ln -s $(pwd) /go/src/github.com/ob-vss-ws18/ob-vss-ws18'
-                sh 'ls /go/src/github.com/ob-vss-ws18/ob-vss-ws18/'
                 sh 'cd proto.actor/node1 && make app'
                 sh 'cd proto.actor/node2 && make app'
             }
         }
-        stage('Build Docker-Images') {
-            agent any
-            steps {
-                sh 'cd proto.actor && docker-compose build'
+        stage('Build and Push Docker-Images') {
+            agent {
+                label 'master'
             }
-        }
-        stage('Run Docker-Images') {
-            agent any
             steps {
-                sh 'cd proto.actor && docker-compose up -d'
-                sleep(time:2,unit:"MINUTES")
-                sh 'cd proto.actor && docker-compose down'
+                sh 'cd proto.actor/node1 && docker-build-and-push -b ${BRANCH_NAME} -s node1'
+                sh 'cd proto.actor/node2 && docker-build-and-push -b ${BRANCH_NAME} -s node2'
             }
         }
     }

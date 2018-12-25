@@ -1,5 +1,5 @@
 syntax = "proto3";
-package messages;
+package echomessages;
 import "github.com/AsynkronIT/protoactor-go/actor/protos.proto";
 
 //this is the message the actor on node 1 will send to the remote actor on node 2

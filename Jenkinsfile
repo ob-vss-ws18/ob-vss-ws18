@@ -22,8 +22,6 @@ pipeline {
                 docker { image 'obraun/vss-jenkins' }
             }
             steps {
-                sh 'go get github.com/AsynkronIT/protoactor-go/...'
-                sh 'cd $GOPATH/src/github.com/AsynkronIT/protoactor-go && go get ./... && make'
                 sh 'cd proto.actor/node1 && make app'
                 sh 'cd proto.actor/node2 && make app'
             }

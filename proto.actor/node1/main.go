@@ -9,7 +9,7 @@ import (
 
 	"github.com/AsynkronIT/protoactor-go/actor"
 	"github.com/AsynkronIT/protoactor-go/remote"
-	messages "github.com/ob-vss-ws18/ob-vss-ws18/proto.actor/echomessages"
+	"github.com/ob-vss-ws18/ob-vss-ws18/proto.actor/echomessages"
 )
 
 type MyActor struct {
@@ -18,7 +18,7 @@ type MyActor struct {
 
 func (state *MyActor) Receive(context actor.Context) {
 	switch context.Message().(type) {
-	case *messages.Response:
+	case *echomessages.Response:
 		state.count++
 		fmt.Println(state.count)
 	}
@@ -38,7 +38,7 @@ func main() {
 		return &MyActor{}
 	})
 	pid := actor.Spawn(props)
-	message := &messages.Echo{Message: "hej", Sender: pid}
+	message := &echomessages.Echo{Message: "hej", Sender: pid}
 
 	fmt.Println("Sleeping 5 seconds...")
 	time.Sleep(5 * time.Second)

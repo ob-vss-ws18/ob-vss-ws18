@@ -19,7 +19,10 @@ pipeline {
         }
         stage('Build Nodes') {
             agent {
-                docker { image 'obraun/vss-jenkins' }
+                docker {
+                    image 'obraun/vss-jenkins'
+                    args '-v ${PWD}:/go/src/github.com/ob-vss-ws18/ob-vss-ws18/'
+                }
             }
             steps {
                 sh 'cd proto.actor/node1 && make app'

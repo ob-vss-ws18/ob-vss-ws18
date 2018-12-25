@@ -21,7 +21,7 @@ pipeline {
             agent {
                 docker {
                     image 'obraun/vss-jenkins'
-                    args '-v ${PWD}:/go/src/github.com/ob-vss-ws18/ob-vss-ws18'
+                    args '-v ${WORKSPACE}:/go/src/github.com/ob-vss-ws18/ob-vss-ws18'
                 }
             }
             steps {

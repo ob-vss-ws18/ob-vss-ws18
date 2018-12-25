@@ -22,6 +22,7 @@ pipeline {
                 docker { image 'obraun/vss-jenkins' }
             }
             steps {
+                sh 'mkdir -p /go/src/github.com/ob-vss-ws18/ob-vss-ws18'
                 sh 'ln -s $(pwd) /go/src/github.com/ob-vss-ws18/ob-vss-ws18'
                 sh 'ls /go/src/github.com/ob-vss-ws18/ob-vss-ws18/'
                 sh 'cd proto.actor/node1 && make app'

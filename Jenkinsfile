@@ -25,6 +25,7 @@ pipeline {
                 }
             }
             steps {
+                sh 'ls /go/src/github.com/ob-vss-ws18/ob-vss-ws18/'
                 sh 'cd proto.actor/node1 && make app'
                 sh 'cd proto.actor/node2 && make app'
             }
